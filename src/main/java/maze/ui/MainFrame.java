@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import maze.Maze;
+import maze.MazeBuilder;
 
 
 public class MainFrame extends JFrame { 
@@ -25,8 +26,7 @@ public class MainFrame extends JFrame {
 	private MazePanel mazePanel;
 	
 	public MainFrame() {
-		Maze maze  = new Maze(10,10);
-		maze.buildMaze();
+		MazeBuilder mazeBuilder  = new MazeBuilder(16,16);
 
 		setTitle("Maze Example of GoF");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		mazePanel = new MazePanel(maze);
+		mazePanel = new MazePanel(mazeBuilder.buildMaze());
 		contentPane.add(mazePanel);
 	}
 

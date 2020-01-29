@@ -25,7 +25,7 @@ public class MazePanel  extends JPanel {
 
 	public MazePanel(Maze maze) {
 		this.roomWidth = 40;
-		this.wallWidth = 10;
+		this.wallWidth = 2;
 		this.maze = maze;
 		this.start = maze.getStartRoom();
 		this.end = maze.getEndRoom();
@@ -49,10 +49,14 @@ public class MazePanel  extends JPanel {
 			g.setColor(Color.WHITE);
 		}
 		g.fillRect(pos.getY()*roomWidth, pos.getX()*roomWidth, roomWidth, roomWidth);
-		for (Entry<Direction, MapSite> neighbor:room.getNeighborEntries().entrySet()) {
+		for (Entry<Direction, MapSite> neighbor:room.getNeighborEntries()) {
 			if (neighbor.getValue() instanceof Wall) {
+				Wall wall = (Wall) neighbor.getValue();
 				Direction direction = neighbor.getKey();
-				int halfWallWidth = wallWidth/2;
+				int halfWallWidth = wallWidth;
+				if (wall.getNeighbors().size()==2) {
+					halfWallWidth = wallWidth/2;
+				}
 				if (direction.equals(Direction.UP)) {
 					g.setColor(Color.BLACK);
 					g.fillRect(pos.getY()*roomWidth, pos.getX()*roomWidth, roomWidth, halfWallWidth);
