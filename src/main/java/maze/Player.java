@@ -10,4 +10,10 @@ public class Player {
 		return currentRoom;
 	}
 
+	public void move(Direction direction) {
+		MapSite next = currentRoom.getNeighbor(direction);
+		if (next instanceof Room)
+			currentRoom = (Room)next;
+	}
+
 }

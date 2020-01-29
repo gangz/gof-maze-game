@@ -37,6 +37,8 @@ public class MainFrame extends JFrame {
 		setContentPane(contentPane);
 		mazePanel = new MazePanel(mazeBuilder.buildMaze());
 		contentPane.add(mazePanel);
+		mazePanel.setFocusable(true);
+		mazePanel.requestFocus();
 	}
 
 }
