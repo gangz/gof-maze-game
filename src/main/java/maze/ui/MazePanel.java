@@ -7,6 +7,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import java.util.Map.Entry;
+
+import maze.Direction;
 import maze.MapSite;
 import maze.Maze;
 import maze.Position;
@@ -18,62 +20,61 @@ public class MazePanel  extends JPanel {
 	private int roomWidth;
 	private int wallWidth;
 	private Maze maze;
-	
+	private Room start;
+	private Room end;
 
 	public MazePanel(Maze maze) {
-		this.roomWidth = 30;
+		this.roomWidth = 40;
 		this.wallWidth = 10;
 		this.maze = maze;
+		this.start = maze.getStartRoom();
+		this.end = maze.getEndRoom();
 		this.setKeyListener();
+		
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for ( MapSite mapSite:maze.elements()) {
-			Position pos = mapSite.getPosition();
-			g.setColor(getColor(mapSite));
-			if (mapSite instanceof Room)
-				g.fillRect(getRoomY(pos), getRoomX(pos), roomWidth, roomWidth);
-			else
-			{
-				if (pos.getY()%2==0) {
-					g.fillRect(getWallY(pos), getWallXV(pos), wallWidth, roomWidth+wallWidth);
-				}else {
-					g.fillRect(getWallY(pos), getWallXH(pos), roomWidth+wallWidth,wallWidth);
+		for ( Room room:maze.rooms()) {
+			drawRoom(g,room);
+		}
+	}
+
+	private void drawRoom(Graphics g, Room room) {
+		Position pos = room.getPosition();
+		if (room.equals(this.start) || room.equals(this.end)) {
+			g.setColor(Color.GREEN);
+		}else {
+			g.setColor(Color.WHITE);
+		}
+		g.fillRect(pos.getY()*roomWidth, pos.getX()*roomWidth, roomWidth, roomWidth);
+		for (Entry<Direction, MapSite> neighbor:room.getNeighborEntries().entrySet()) {
+			if (neighbor.getValue() instanceof Wall) {
+				Direction direction = neighbor.getKey();
+				int halfWallWidth = wallWidth/2;
+				if (direction.equals(Direction.UP)) {
+					g.setColor(Color.BLACK);
+					g.fillRect(pos.getY()*roomWidth, pos.getX()*roomWidth, roomWidth, halfWallWidth);
 				}
-			}		
+
+				if (direction.equals(Direction.DOWN)) {
+					g.setColor(Color.BLACK);
+					g.fillRect(pos.getY()*roomWidth, (pos.getX()+1)*roomWidth-halfWallWidth, roomWidth, halfWallWidth);
+				}
+
+				if (direction.equals(Direction.LEFT)) {
+					g.setColor(Color.BLACK);
+					g.fillRect(pos.getY()*roomWidth, pos.getX()*roomWidth, halfWallWidth, roomWidth);
+				}
+
+				if (direction.equals(Direction.RIGHT)) {
+					g.setColor(Color.BLACK);
+					g.fillRect((pos.getY()+1)*roomWidth-halfWallWidth, pos.getX()*roomWidth, halfWallWidth, roomWidth);
+				}
+			}
 		}
-	}
 
-	private int getWallXV(Position pos) {
-		return (pos.getX()-1)/2*(roomWidth+wallWidth);
-	}
-
-	private int getWallXH(Position pos) {
-		return pos.getX()/2*(roomWidth+wallWidth);
-	}
-
-	private int getWallY(Position pos) {
-		return pos.getY()/2*(roomWidth+wallWidth);
-	}
-
-	private int getRoomX(Position pos) {
-		return getWallXH(pos)+wallWidth;
-	}
-
-	private int getRoomY(Position pos) {
-		return getWallY(pos)+wallWidth;
-	}
-	
-	private Color getColor(MapSite mapSite) {
-		if (mapSite instanceof Room) {
-			return Color.WHITE;
-		}
-		if (mapSite instanceof Wall) {
-			return Color.BLACK;
-		}
-		return Color.GRAY;
 	}
 
 	private void setKeyListener() {
