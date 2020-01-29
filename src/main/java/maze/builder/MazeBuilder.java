@@ -1,8 +1,15 @@
-package maze;
+package maze.builder;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import maze.Direction;
+import maze.MapSite;
+import maze.Maze;
+import maze.Position;
+import maze.Room;
+import maze.Wall;
 
 public class MazeBuilder {
 	private Maze maze;
@@ -24,14 +31,11 @@ public class MazeBuilder {
 	public Maze buildMaze() {
 		buildRoomAndWalls();
 		breakWalls();
-		maze.setFirstRoom(firstRoom);
-		maze.setEndRoom(endRoom);
 		return maze;
 	}
 
 	private void buildRoomAndWalls() {
 		rooms = new HashMap<>();
-		maze.setRooms(rooms);
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
 				Room room = new Room(new Position(i, j));
@@ -41,6 +45,7 @@ public class MazeBuilder {
 		}
 		openEntry();
 		openExit();
+		maze.build(rooms,firstRoom,endRoom);
 	}
 	
 	private void breakWalls() {

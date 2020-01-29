@@ -9,6 +9,7 @@ public class Maze {
 	private int cols;
 	private Room firstRoom;
 	private Room endRoom;
+	private Player player;
 	public Maze(int rows, int cols) {
 		this.setRows(rows);
 		this.setCols(cols);
@@ -42,15 +43,15 @@ public class Maze {
 		return endRoom;
 	}
 
-	public void setRooms(HashMap<Position, Room> rooms) {
+	public void build(HashMap<Position, Room> rooms, Room firstRoom, Room endRoom) {
 		this.rooms = rooms;
-	}
-
-	public void setFirstRoom(Room firstRoom) {
 		this.firstRoom = firstRoom;
+		this.endRoom = endRoom;
+		this.player = new Player(firstRoom);
+		
 	}
 
-	public void setEndRoom(Room endRoom) {
-		this.endRoom = endRoom;
+	public Player getPlayer() {
+		return this.player;
 	}
 }

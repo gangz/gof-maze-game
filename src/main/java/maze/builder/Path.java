@@ -1,4 +1,4 @@
-package maze;
+package maze.builder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,6 +6,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import maze.MapSite;
+import maze.Room;
+import maze.Wall;
 
 public class Path {
 	

@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import maze.Direction;
 import maze.MapSite;
 import maze.Maze;
+import maze.Player;
 import maze.Position;
 import maze.Room;
 import maze.Wall;
@@ -39,6 +40,13 @@ public class MazePanel  extends JPanel {
 		for ( Room room:maze.rooms()) {
 			drawRoom(g,room);
 		}
+		drawPlayer(g, maze.getPlayer());
+	}
+
+	private void drawPlayer(Graphics g,Player player) {
+		Position pos = player.getCurrentRoom().getPosition();
+		g.setColor(Color.RED);
+		g.fillOval(pos.getY()*roomWidth, pos.getX()*roomWidth, roomWidth, roomWidth);
 	}
 
 	private void drawRoom(Graphics g, Room room) {

@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import maze.Maze;
-import maze.MazeBuilder;
+import maze.builder.MazeBuilder;
 
 
 public class MainFrame extends JFrame { 
