@@ -9,15 +9,23 @@ import java.util.Set;
 
 public class Path {
 	
-	public Path() {
+	private Set<Room> rooms = new HashSet<>();
+	public Set<Room> getRooms() {
+		return rooms;
 	}
 
-	Set<Room> rooms = new HashSet<>();
-	List<Wall> frontier = new ArrayList<>();
-	Collection<Wall> walls = new HashSet<>();
+	public List<Wall> getFrontier() {
+		return frontier;
+	}
 
 	public Collection<Wall> getWalls() {
 		return walls;
+	}
+
+	private List<Wall> frontier = new ArrayList<>();
+	private Collection<Wall> walls = new HashSet<>();
+
+	public Path() {
 	}
 
 	public void addWall(Wall wall) {
@@ -26,6 +34,10 @@ public class Path {
 
 	public void addRoom(Room room) {
 		this.rooms.add(room);
+		putAllWallsInFrontier(room);
+	}
+
+	private void putAllWallsInFrontier(Room room) {
 		for (MapSite wall:room.getNeighbors()) {
 			if (containsRoomsNotInPath((Wall)wall))
 				frontier.add((Wall)wall);
@@ -58,6 +70,4 @@ public class Path {
 		}
 		return null;
 	}
-
-
 }

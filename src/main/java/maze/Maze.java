@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Maze {
-	HashMap<Position,Room> rooms = new HashMap<>();
+	private HashMap<Position,Room> rooms = new HashMap<>();
 	private int rows;
 	private int cols;
 	private Room firstRoom;
@@ -44,5 +44,13 @@ public class Maze {
 
 	public void setRooms(HashMap<Position, Room> rooms) {
 		this.rooms = rooms;
+	}
+
+	public void setFirstRoom(Room firstRoom) {
+		this.firstRoom = firstRoom;
+	}
+
+	public void setEndRoom(Room endRoom) {
+		this.endRoom = endRoom;
 	}
 }

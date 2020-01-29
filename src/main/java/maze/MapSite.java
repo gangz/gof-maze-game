@@ -16,7 +16,7 @@ public abstract class MapSite {
 
 	abstract void enter();
 
-	public void addNeighbor(Direction direction, MapSite site) {
+	public void setNeighbor(Direction direction, MapSite site) {
 		neighbors.put(direction, site);
 	}
 
@@ -24,20 +24,6 @@ public abstract class MapSite {
 		return neighbors.get(direction);
 	}
 
-	public int neighborsCount() {
-		return neighbors.size();
-	}
-
-
-
-	public void removeNeighbor(MapSite neighbor) {
-		for (Entry<Direction, MapSite> entry : neighbors.entrySet()) {
-			if (entry.getValue().equals(neighbor)) {
-				neighbors.remove(entry.getKey());
-				break;
-			}
-		}
-	}
 
 	public List<MapSite> getNeighbors() {
 		return new ArrayList<>(neighbors.values());
@@ -56,4 +42,12 @@ public abstract class MapSite {
 		}		
 	}
 
+	public void removeNeighbor(MapSite neighbor) {
+		for (Entry<Direction, MapSite> entry : neighbors.entrySet()) {
+			if (entry.getValue().equals(neighbor)) {
+				neighbors.remove(entry.getKey());
+				break;
+			}
+		}
+	}
 }
