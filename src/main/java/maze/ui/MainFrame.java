@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import maze.Maze;
+
 
 public class MainFrame extends JFrame { 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +32,9 @@ public class MainFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		mazePanel = new MazePanel(20, 20);
+		Maze maze  = new Maze(20,20);
+		maze.buildMaze();
+		mazePanel = new MazePanel(maze);
 		contentPane.add(mazePanel);
 	}
 

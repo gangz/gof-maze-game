@@ -6,46 +6,33 @@ import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import java.util.HashMap;
 import java.util.Map.Entry;
 import maze.MapSite;
+import maze.Maze;
 import maze.Position;
 import maze.Room;
 import maze.Wall;
 
 public class MazePanel  extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private int rows;
-	private int cols;
 	private int roomWidth;
 	private int wallWidth;
+	private Maze maze;
 	
-	HashMap<Position,MapSite> map = new HashMap<>();
 
-	public MazePanel(int rows, int cols) {
-		if (rows%2==0) rows++;
-		if (cols%2==0) cols++;
-		this.rows = rows;
-		this.cols = cols;
+	public MazePanel(Maze maze) {
 		this.roomWidth = 30;
 		this.wallWidth = 10;
+		this.maze = maze;
 		this.setKeyListener();
-		for (int i=0;i<rows;i++) {
-			for (int j =0;j<cols;j++) {
-				if (i%2==1 && j%2==1)
-					map.put(new Position(i,j),new Room());
-				else
-					map.put(new Position(i,j),new Wall());
-			}
-		}
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for ( Entry<Position, MapSite> entry:map.entrySet()) {
-			Position pos = entry.getKey();
-			MapSite mapSite = entry.getValue();
+		for ( Entry<Position, MapSite> element:maze.elements()) {
+			Position pos = element.getKey();
+			MapSite mapSite = element.getValue();
 			g.setColor(getColor(mapSite));
 			if (mapSite instanceof Room)
 				g.fillRect(getRoomY(pos), getRoomX(pos), roomWidth, roomWidth);
