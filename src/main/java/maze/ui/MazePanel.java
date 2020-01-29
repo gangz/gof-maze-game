@@ -30,9 +30,8 @@ public class MazePanel  extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		for ( Entry<Position, MapSite> element:maze.elements()) {
-			Position pos = element.getKey();
-			MapSite mapSite = element.getValue();
+		for ( MapSite mapSite:maze.elements()) {
+			Position pos = mapSite.getPosition();
 			g.setColor(getColor(mapSite));
 			if (mapSite instanceof Room)
 				g.fillRect(getRoomY(pos), getRoomX(pos), roomWidth, roomWidth);

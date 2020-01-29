@@ -1,11 +1,14 @@
 package maze;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 public class Maze {
-	HashMap<Position,MapSite> map = new HashMap<>();
+	List<MapSite> map = new ArrayList<>();
 	private int rows;
 	private int cols;
 	
@@ -34,20 +37,24 @@ public class Maze {
 	
 	public void buildMaze() {
 		buildRoomAndWalls();
+		breakWalls();
+	}
+
+	private void breakWalls() {
 	}
 
 	private void buildRoomAndWalls() {
 		for (int i=0;i<getRows();i++) {
 			for (int j =0;j<getCols();j++) {
 				if (i%2==1 && j%2==1)
-					map.put(new Position(i,j),new Room());
+					map.add(new Room(new Position(i,j)));
 				else
-					map.put(new Position(i,j),new Wall());
+					map.add(new Wall(new Position(i,j)));
 			}
 		}
 	}
 
-	public Set<Entry<Position, MapSite>> elements() {
-		return map.entrySet();
+	public List<MapSite> elements() {
+		return map;
 	}
 }
