@@ -25,12 +25,12 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 		setTitle("Maze Example of GoF");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400, 400);
+		setSize(600, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		mazePanel = new MazePanel(10, 10);
+		mazePanel = new MazePanel(20, 20);
 		contentPane.add(mazePanel);
 	}
 
