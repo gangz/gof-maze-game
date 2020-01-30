@@ -1,12 +1,12 @@
 package maze.ui;
 
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import java.util.Map.Entry;
+
+import javax.swing.JPanel;
 
 import maze.Direction;
 import maze.MapSite;
