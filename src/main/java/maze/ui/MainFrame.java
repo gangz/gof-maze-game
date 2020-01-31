@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import maze.builder.MazeBuilder;
+import maze.builder.RandomPrimMazeBuilder;
 import util.FontManager;
 
 
@@ -28,7 +29,7 @@ public class MainFrame extends JFrame {
 	
 	public MainFrame() {
 		FontManager.initGlobalFontSetting(new Font("Simsun",0, 24));
-		MazeBuilder mazeBuilder  = new MazeBuilder(16,16);
+		MazeBuilder mazeBuilder  = new RandomPrimMazeBuilder(16,16);
 		setTitle("Maze Example of GoF");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 600);
